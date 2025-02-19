@@ -203,6 +203,20 @@ class SpotifyClient(Spotify, metaclass=Singleton):
 
         return response
 
+    def get_personalized_playlists(self):
+        """
+        Get personalized playlists for the user.
+
+        ### Returns
+        - A list of personalized playlists.
+        """
+
+        if not self.user_auth:
+            raise SpotifyError("User authentication is required to get personalized playlists.")
+
+        response = self._get("me/personalized-playlists")
+        return response.get("items", [])
+
 
 def save_spotify_cache(cache: Dict[str, Optional[Dict]]):
     """
